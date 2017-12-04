@@ -1,0 +1,448 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.dubbo.mapper.DubboUserMapper" >
+  <resultMap id="BaseResultMap" type="api.entity.DubboUser" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="version" property="version" jdbcType="INTEGER" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="user_no" property="userNo" jdbcType="VARCHAR" />
+    <result column="user_type" property="userType" jdbcType="VARCHAR" />
+    <result column="main_user_id" property="mainUserId" jdbcType="BIGINT" />
+    <result column="user_pwd" property="userPwd" jdbcType="VARCHAR" />
+    <result column="user_name" property="userName" jdbcType="VARCHAR" />
+    <result column="mobile_no" property="mobileNo" jdbcType="VARCHAR" />
+    <result column="status" property="status" jdbcType="INTEGER" />
+    <result column="last_login_time" property="lastLoginTime" jdbcType="TIMESTAMP" />
+    <result column="is_changed_pwd" property="isChangedPwd" jdbcType="INTEGER" />
+    <result column="pwd_error_count" property="pwdErrorCount" jdbcType="INTEGER" />
+    <result column="pwd_error_time" property="pwdErrorTime" jdbcType="TIMESTAMP" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="api.entity.DubboUser" extends="BaseResultMap" >
+    <result column="email" property="email" jdbcType="VARBINARY" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, version, create_time, user_no, user_type, main_user_id, user_pwd, user_name, 
+    mobile_no, status, last_login_time, is_changed_pwd, pwd_error_count, pwd_error_time, 
+    remark
+  </sql>
+  <sql id="Blob_Column_List" >
+    email
+  </sql>
+  <select id="selectByExampleWithBLOBs" resultMap="ResultMapWithBLOBs" parameterType="api.entity.DubboUserExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from dubbo_user
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="api.entity.DubboUserExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from dubbo_user
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from dubbo_user
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from dubbo_user
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="api.entity.DubboUserExample" >
+    delete from dubbo_user
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="api.entity.DubboUser" >
+    insert into dubbo_user (id, version, create_time, 
+      user_no, user_type, main_user_id, 
+      user_pwd, user_name, mobile_no, 
+      status, last_login_time, is_changed_pwd, 
+      pwd_error_count, pwd_error_time, remark, 
+      email)
+    values (#{id,jdbcType=BIGINT}, #{version,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{userNo,jdbcType=VARCHAR}, #{userType,jdbcType=VARCHAR}, #{mainUserId,jdbcType=BIGINT}, 
+      #{userPwd,jdbcType=VARCHAR}, #{userName,jdbcType=VARCHAR}, #{mobileNo,jdbcType=VARCHAR}, 
+      #{status,jdbcType=INTEGER}, #{lastLoginTime,jdbcType=TIMESTAMP}, #{isChangedPwd,jdbcType=INTEGER}, 
+      #{pwdErrorCount,jdbcType=INTEGER}, #{pwdErrorTime,jdbcType=TIMESTAMP}, #{remark,jdbcType=VARCHAR}, 
+      #{email,jdbcType=VARBINARY})
+  </insert>
+  <insert id="insertSelective" parameterType="api.entity.DubboUser" >
+    insert into dubbo_user
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="version != null" >
+        version,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="userNo != null" >
+        user_no,
+      </if>
+      <if test="userType != null" >
+        user_type,
+      </if>
+      <if test="mainUserId != null" >
+        main_user_id,
+      </if>
+      <if test="userPwd != null" >
+        user_pwd,
+      </if>
+      <if test="userName != null" >
+        user_name,
+      </if>
+      <if test="mobileNo != null" >
+        mobile_no,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="lastLoginTime != null" >
+        last_login_time,
+      </if>
+      <if test="isChangedPwd != null" >
+        is_changed_pwd,
+      </if>
+      <if test="pwdErrorCount != null" >
+        pwd_error_count,
+      </if>
+      <if test="pwdErrorTime != null" >
+        pwd_error_time,
+      </if>
+      <if test="remark != null" >
+        remark,
+      </if>
+      <if test="email != null" >
+        email,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="version != null" >
+        #{version,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="userNo != null" >
+        #{userNo,jdbcType=VARCHAR},
+      </if>
+      <if test="userType != null" >
+        #{userType,jdbcType=VARCHAR},
+      </if>
+      <if test="mainUserId != null" >
+        #{mainUserId,jdbcType=BIGINT},
+      </if>
+      <if test="userPwd != null" >
+        #{userPwd,jdbcType=VARCHAR},
+      </if>
+      <if test="userName != null" >
+        #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="mobileNo != null" >
+        #{mobileNo,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="lastLoginTime != null" >
+        #{lastLoginTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="isChangedPwd != null" >
+        #{isChangedPwd,jdbcType=INTEGER},
+      </if>
+      <if test="pwdErrorCount != null" >
+        #{pwdErrorCount,jdbcType=INTEGER},
+      </if>
+      <if test="pwdErrorTime != null" >
+        #{pwdErrorTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null" >
+        #{email,jdbcType=VARBINARY},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="api.entity.DubboUserExample" resultType="java.lang.Integer" >
+    select count(*) from dubbo_user
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update dubbo_user
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=BIGINT},
+      </if>
+      <if test="record.version != null" >
+        version = #{record.version,jdbcType=INTEGER},
+      </if>
+      <if test="record.createTime != null" >
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.userNo != null" >
+        user_no = #{record.userNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.userType != null" >
+        user_type = #{record.userType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.mainUserId != null" >
+        main_user_id = #{record.mainUserId,jdbcType=BIGINT},
+      </if>
+      <if test="record.userPwd != null" >
+        user_pwd = #{record.userPwd,jdbcType=VARCHAR},
+      </if>
+      <if test="record.userName != null" >
+        user_name = #{record.userName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.mobileNo != null" >
+        mobile_no = #{record.mobileNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.status != null" >
+        status = #{record.status,jdbcType=INTEGER},
+      </if>
+      <if test="record.lastLoginTime != null" >
+        last_login_time = #{record.lastLoginTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.isChangedPwd != null" >
+        is_changed_pwd = #{record.isChangedPwd,jdbcType=INTEGER},
+      </if>
+      <if test="record.pwdErrorCount != null" >
+        pwd_error_count = #{record.pwdErrorCount,jdbcType=INTEGER},
+      </if>
+      <if test="record.pwdErrorTime != null" >
+        pwd_error_time = #{record.pwdErrorTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.remark != null" >
+        remark = #{record.remark,jdbcType=VARCHAR},
+      </if>
+      <if test="record.email != null" >
+        email = #{record.email,jdbcType=VARBINARY},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map" >
+    update dubbo_user
+    set id = #{record.id,jdbcType=BIGINT},
+      version = #{record.version,jdbcType=INTEGER},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      user_no = #{record.userNo,jdbcType=VARCHAR},
+      user_type = #{record.userType,jdbcType=VARCHAR},
+      main_user_id = #{record.mainUserId,jdbcType=BIGINT},
+      user_pwd = #{record.userPwd,jdbcType=VARCHAR},
+      user_name = #{record.userName,jdbcType=VARCHAR},
+      mobile_no = #{record.mobileNo,jdbcType=VARCHAR},
+      status = #{record.status,jdbcType=INTEGER},
+      last_login_time = #{record.lastLoginTime,jdbcType=TIMESTAMP},
+      is_changed_pwd = #{record.isChangedPwd,jdbcType=INTEGER},
+      pwd_error_count = #{record.pwdErrorCount,jdbcType=INTEGER},
+      pwd_error_time = #{record.pwdErrorTime,jdbcType=TIMESTAMP},
+      remark = #{record.remark,jdbcType=VARCHAR},
+      email = #{record.email,jdbcType=VARBINARY}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update dubbo_user
+    set id = #{record.id,jdbcType=BIGINT},
+      version = #{record.version,jdbcType=INTEGER},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      user_no = #{record.userNo,jdbcType=VARCHAR},
+      user_type = #{record.userType,jdbcType=VARCHAR},
+      main_user_id = #{record.mainUserId,jdbcType=BIGINT},
+      user_pwd = #{record.userPwd,jdbcType=VARCHAR},
+      user_name = #{record.userName,jdbcType=VARCHAR},
+      mobile_no = #{record.mobileNo,jdbcType=VARCHAR},
+      status = #{record.status,jdbcType=INTEGER},
+      last_login_time = #{record.lastLoginTime,jdbcType=TIMESTAMP},
+      is_changed_pwd = #{record.isChangedPwd,jdbcType=INTEGER},
+      pwd_error_count = #{record.pwdErrorCount,jdbcType=INTEGER},
+      pwd_error_time = #{record.pwdErrorTime,jdbcType=TIMESTAMP},
+      remark = #{record.remark,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="api.entity.DubboUser" >
+    update dubbo_user
+    <set >
+      <if test="version != null" >
+        version = #{version,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="userNo != null" >
+        user_no = #{userNo,jdbcType=VARCHAR},
+      </if>
+      <if test="userType != null" >
+        user_type = #{userType,jdbcType=VARCHAR},
+      </if>
+      <if test="mainUserId != null" >
+        main_user_id = #{mainUserId,jdbcType=BIGINT},
+      </if>
+      <if test="userPwd != null" >
+        user_pwd = #{userPwd,jdbcType=VARCHAR},
+      </if>
+      <if test="userName != null" >
+        user_name = #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="mobileNo != null" >
+        mobile_no = #{mobileNo,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="lastLoginTime != null" >
+        last_login_time = #{lastLoginTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="isChangedPwd != null" >
+        is_changed_pwd = #{isChangedPwd,jdbcType=INTEGER},
+      </if>
+      <if test="pwdErrorCount != null" >
+        pwd_error_count = #{pwdErrorCount,jdbcType=INTEGER},
+      </if>
+      <if test="pwdErrorTime != null" >
+        pwd_error_time = #{pwdErrorTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="remark != null" >
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null" >
+        email = #{email,jdbcType=VARBINARY},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="api.entity.DubboUser" >
+    update dubbo_user
+    set version = #{version,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      user_no = #{userNo,jdbcType=VARCHAR},
+      user_type = #{userType,jdbcType=VARCHAR},
+      main_user_id = #{mainUserId,jdbcType=BIGINT},
+      user_pwd = #{userPwd,jdbcType=VARCHAR},
+      user_name = #{userName,jdbcType=VARCHAR},
+      mobile_no = #{mobileNo,jdbcType=VARCHAR},
+      status = #{status,jdbcType=INTEGER},
+      last_login_time = #{lastLoginTime,jdbcType=TIMESTAMP},
+      is_changed_pwd = #{isChangedPwd,jdbcType=INTEGER},
+      pwd_error_count = #{pwdErrorCount,jdbcType=INTEGER},
+      pwd_error_time = #{pwdErrorTime,jdbcType=TIMESTAMP},
+      remark = #{remark,jdbcType=VARCHAR},
+      email = #{email,jdbcType=VARBINARY}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="api.entity.DubboUser" >
+    update dubbo_user
+    set version = #{version,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      user_no = #{userNo,jdbcType=VARCHAR},
+      user_type = #{userType,jdbcType=VARCHAR},
+      main_user_id = #{mainUserId,jdbcType=BIGINT},
+      user_pwd = #{userPwd,jdbcType=VARCHAR},
+      user_name = #{userName,jdbcType=VARCHAR},
+      mobile_no = #{mobileNo,jdbcType=VARCHAR},
+      status = #{status,jdbcType=INTEGER},
+      last_login_time = #{lastLoginTime,jdbcType=TIMESTAMP},
+      is_changed_pwd = #{isChangedPwd,jdbcType=INTEGER},
+      pwd_error_count = #{pwdErrorCount,jdbcType=INTEGER},
+      pwd_error_time = #{pwdErrorTime,jdbcType=TIMESTAMP},
+      remark = #{remark,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>
