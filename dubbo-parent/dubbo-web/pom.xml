@@ -4,17 +4,38 @@
 	<parent>
 		<groupId>com.dubbo.parent</groupId>
 		<artifactId>dubbo-parent</artifactId>
-		<version>0.0.1-SNAPSHOT</version>
+		<version>1.0-SNAPSHOT</version>
 	</parent>
+	<groupId>dubbo-web</groupId>
 	<artifactId>dubbo-web</artifactId>
 	<packaging>war</packaging>
+	<version>${dubbo-web.version}</version>
+
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+	</properties>
+
+		<build>
+		<finalName>edubbo-web</finalName>
+		<resources>
+			<resource>
+				<targetPath>${project.build.directory}/classes</targetPath>
+				<directory>src/main/resources</directory>
+				<filtering>true</filtering>
+				<includes>
+					<include>**/*.xml</include>
+					<include>**/*.properties</include>
+				</includes>
+			</resource>
+		</resources>
+	</build>
 
 	<dependencies>
 
 		<dependency>
 			<groupId>dubbo-api</groupId>
 			<artifactId>dubbo-api</artifactId>
-			<version>${dubbo-api}</version>
+			<version>${dubbo-api.version}</version>
 		</dependency>
 
 		<!-- https://mvnrepository.com/artifact/com.alibaba/dubbo -->
