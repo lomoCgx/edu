@@ -16,7 +16,7 @@
 	</properties>
 
 		<build>
-		<finalName>edubbo-web</finalName>
+		<finalName>dubbo-web</finalName>
 		<resources>
 			<resource>
 				<targetPath>${project.build.directory}/classes</targetPath>
